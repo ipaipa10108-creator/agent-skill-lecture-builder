@@ -26,6 +26,19 @@
 
 提供主題 or Markdown 講稿，透過 Agent Skills 單一 HTML 課程頁面。
 
+## 📍 課程入口網站 (Course Portal)
+
+我們已建立一個整合性的門戶頁面，您可以快速瀏覽所有已發布的課程：
+
+👉 **[立即開啟課程入口網站](https://ipaipa10108-creator.github.io/agent-skill-lecture-builder/)**
+
+包含：
+- 🔍 即時關鍵字搜尋
+- 📋 課程詳情（建立時間、頁數、講師）
+- 🚀 一鍵開啟講義頁面
+
+---
+
 ## 目錄
 
 - [Quick Start](#quick-start)
