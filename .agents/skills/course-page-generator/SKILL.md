@@ -5,7 +5,9 @@ description: 將講稿或非結構化筆記轉換為約定的 Markdown 格式，
 
 # Course Page Generator
 
-原始講稿 → 結構化 Markdown → `node .agents/skills/course-page-generator/scripts/build.mjs <dir>` → `index.html` → `node .agents/skills/course-page-generator/scripts/generate-og.mjs <dir>` → `assets/og-*.jpg`
+原始講稿 → 結構化 Markdown → `node build.mjs <dir>` → `index.html` → `node generate-og.mjs <dir>` → `assets/og-*.jpg`
+
+（可選）`node analyze-images.mjs <dir>` → `assets/image-suggestions.md` → AI 圖片生成 → `assets/`
 
 ## 專案結構
 
@@ -13,7 +15,8 @@ description: 將講稿或非結構化筆記轉換為約定的 Markdown 格式，
 .agents/skills/course-page-generator/
 ├── scripts/
 │   ├── build.mjs          # 課程頁 build script
-│   └── generate-og.mjs    # 針對課程頁產出 1200x630 OG 縮圖（依賴 Puppeteer）
+│   ├── generate-og.mjs    # 針對課程頁產出 1200x630 OG 縮圖（依賴 Puppeteer）
+│   └── analyze-images.mjs # 分析內容產生圖片建議（可選）
 └── reference/             # 格式範例與 HTML 模板（含支援 ?og=1 的 base.html）
 
 <root>/                      # 任意根目錄（例如 course/、lectures/、docs/）
@@ -337,6 +340,51 @@ node .agents/skills/course-page-generator/scripts/generate-og.mjs course/cake
 - **Arrays 整個取代**：例如 `nav` 或 `socials` 在課程 config 有定義時，完整取代全域的
 - **沒有課程 config**：直接使用全域 config
 
+---
+
+### Step 5（可選）：分析內容產生圖片建議
+
+當 content.md 完成後，可以執行圖片分析腳本來偵測適合圖像化的內容：
+
+```bash
+node .agents/skills/course-page-generator/scripts/analyze-images.mjs <course-dir>
+```
+
+**功能說明：**
+1. 自動分析 `content.md` 的章節內容
+2. 偵測適合用圖表呈現的關鍵字（責任歸屬、損害賠償、流程、訴訟等）
+3. 在 `assets/` 資料夾生成 `image-suggestions.md` 報告
+
+**報告內容：**
+- 適合插入圖片的位置清單
+- 建議的圖片類型（流程圖、對比表、時間線、檢查清單等）
+- AI 圖片生成的 prompt 建議
+
+**使用流程：**
+```bash
+# 1. 分析內容
+node analyze-images.mjs 車禍求償
+
+# 2. 查看建議報告
+cat 車禍求償/assets/image-suggestions.md
+
+# 3. 使用建議的 prompt 產生圖片（使用 DALL-E、Midjourney 等工具）
+
+# 4. 將圖片放入 assets/ 資料夾
+
+# 5. 在 content.md 中引用圖片
+![圖片說明](assets/圖片檔名.png)
+```
+
+**支援的圖片類型：**
+| 類型 | 關鍵字偵測 | 說明 |
+|------|-----------|------|
+| flowchart | 責任、歸屬、流程 | 過失責任判斷流程圖 |
+| diagram | 賠償、損害、計算 | 損害賠償項目圖 |
+| timeline | 訴訟、時間、法院 | 從事故到判決的時程 |
+| comparison | 保險、強制險、任意險 | 保險對比表 |
+| checklist | 證據、保全、蒐集 | 證據清單圖 |
+
 ## 轉換指引
 
 **⚠️ 核心原則：講義是傳遞資訊的載體，請「萃取重點」而非「逐字轉錄」。**
@@ -369,7 +417,8 @@ node .agents/skills/course-page-generator/scripts/generate-og.mjs course/cake
 7. **確認開場與結尾引言** — 檢查課程 `config.yaml`（或 `global.yaml`）是否已設定 `quotes.opening` 和 `quotes.closing`。若尚未設定，根據講稿的核心精神各撰寫一段引言，寫入 `config.yaml`。開場引言出現在講師介紹之後、第一個章節之前；結尾引言出現在所有章節之後、頁尾之前，用於收束整場課程的訊息。
 9. **搜尋並插入圖片** — 當內容適合搭配圖片時（架構圖、截圖、流程圖等），主動用 Glob 工具搜尋 `<course-dir>/assets/` 資料夾中的圖片檔（`*.png`, `*.jpg`, `*.jpeg`, `*.gif`, `*.svg`, `*.webp`）。
    - **找到匹配圖片**：根據檔名判斷最適合的圖片，插入對應的 `![alt](assets/filename)` 或 `[image-text]` 區塊。
-   - **找不到圖片**：在該處插入 HTML 註解標記，格式為 `<!-- TODO: 建議在此加入圖片：{圖片描述}，請將圖片放到 assets/ 資料夾 -->`，同時在回覆中彙整所有缺圖位置，提醒使用者補充。
+   - **找不到圖片**：在該處插入 HTML 註解標記，格式為 `<!-- TODO: 建議在此加入圖片：{圖片描述}，請將圖片放到 assets/ 資料夾 -->`
+   - **建議搭配使用 analyze-images.mjs**：在 content.md 完成後執行分析腳本，可自動產生圖片放置建議與生成 prompt
    - **assets 資料夾不存在**：提醒使用者建立 `<course-dir>/assets/` 並放入相關圖片。
 10. **驗證格式** — 對照 [components.md](reference/components.md) 確認語法正確。
 

@@ -3,28 +3,28 @@ page:
   favicon: "https://deanlin.net/images/favicon.png"
 
 instructor:
-  name: "工程師下班有約"
+  name: "半路工程師"
   tagline: "AI 企業講師 · 擅長團隊培訓 · 百大企業指定"
   bio: >
     專注於 AI 開發工作流的實踐與推廣。<br>
     擅長將複雜的技術概念轉化為可落地的工作流程，讓團隊真正提升開發效率而非盲目追逐工具。
   avatar: "config/assets/author"
   stats:
-    - text: "📚 出版 **7** 本專業書籍"
-      url: "https://www.tenlong.com.tw/search?keyword=%E6%9E%97%E9%BC%8E%E6%B7%B5"
+    - text: "📚 出版 **0** 本專業書籍"
+      url: "https://www.tenlong.com.tw/"
     - text: "🎤 超過 **100** 場講座"
-      url: "https://www.youtube.com/@dean-lin"
+      url: "https://www.youtube.com/@Asabulu2008"
     - text: "✍️ 發表超過 **400** 篇文章"
-      url: "https://medium.com/@dean-lin"
+      url: "https://medium.com/@Asabulu2008"
   socials:
     - platform: "Facebook"
-      url: "https://www.facebook.com/dean.lin.profile"
+      url: "https://www.facebook.com/Asabulu2008.profile"
     - platform: "YouTube"
-      url: "https://www.youtube.com/@dean-lin"
+      url: "https://www.youtube.com/@Asabulu2008"
     - platform: "Medium"
-      url: "https://medium.com/@dean-lin"
+      url: "https://medium.com/@Asabulu2008"
     - platform: "Threads"
-      url: "https://www.threads.net/@dean.lin"
+      url: "https://www.threads.net/@Asabulu2008"
 
 quotes:
   opening:
@@ -42,5 +42,5 @@ seo:
 
 footer:
   cta: "歡迎追蹤我的社群，獲取更多 AI 開發實戰內容"
-  copyright: "© 工程師下班有約"
+  copyright: "© Asabulu2008"
   show_socials: true

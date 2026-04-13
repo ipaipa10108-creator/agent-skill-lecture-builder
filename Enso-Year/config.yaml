@@ -1,0 +1,20 @@
+page:
+  title: "聖嬰現象：全球宏觀經濟與台股影響分析"
+  badge: "氣候經濟專題"
+  hero_title: "聖嬰現象對全球宏觀經濟與台灣股市之系統性影響及量化投資策略深度分析"
+  subtitle: "理解氣候系統之物理失衡與宏觀經濟的交錯傳導"
+
+seo:
+  title: "聖嬰現象：全球宏觀經濟與台股影響分析｜氣候經濟專題"
+  description: "深入分析聖嬰現象對全球原物料價格、經濟產出及台灣股市的影響，並探討相關量化投資策略"
+  # These would normally be auto-filled from git remote, but leaving empty as not in git repo
+  image: ""
+  url: ""
+
+quotes:
+  opening:
+    text: "氣候變遷不僅改變自然環境，更深刻重塑全球經濟運作軌跡"
+  closing:
+    text: >
+      理解氣候經濟關係，是把握未來投資機會與風險的關鍵。
+      讓我們從聖嬰現象中學習如何在氣候不確定性中尋找確定性。
